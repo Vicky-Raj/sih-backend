@@ -5,7 +5,7 @@ const truckSchema = new Schema({
     name:String,
     reg:String,
     cords:[Number],
-    loading:Boolean,
+    status:String,
     driver:{type:Schema.Types.ObjectId,ref:"Driver"},
     product:{type:Schema.Types.ObjectId,ref:"Product"}
 })
