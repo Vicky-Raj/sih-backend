@@ -4,7 +4,10 @@ const cors = require("cors");
 const app = express();
 const productRoute = require("./routes/product");
 const truckRoute = require("./routes/truck");
+const server =  require("http").Server(app);
+const io = require("socket.io")(server);
 
+global.io = io;
 
 const PORT = 5000;
 
@@ -24,6 +27,10 @@ app.use("/product",productRoute);
 app.use("/truck",truckRoute);
 
 
-app.listen(PORT,()=>console.log(`listening on port ${PORT}`))
+server.listen(PORT,()=>console.log(`Started server on port ${PORT}`));
 
+io.on("connection",(socket)=>{
+    console.log("new connection");
+    socket.on("disconnect",()=>console.log("disconnected"));
+})
 
