@@ -24,6 +24,18 @@ router.get("/",(req,res)=>{
     })
 })
 
+router.get("/history",(req,res)=>{
+    Product.find({status:"delivered"}).then(products=>res.json(products));
+})
+
+router.get("/:id",(req,res)=>{
+    Product.findById(req.params.id).exec()
+    .then(product=>res.json(product))
+    .catch(()=>res.status(400).json())
+})
+
+
+
 router.post("/",(req,res)=>{
     if(!req.body.name || !req.body.to || !req.body.date)res.status(400).json();
     const client = new net.Socket();
